@@ -455,7 +455,7 @@ XkbResizeKeyType(XkbDescPtr xkb,
         if (nResize > 0) {
             int nextMatch;
 
-            xkb->map->size_syms = (nTotal * 12) / 10;
+            xkb->map->size_syms = (nTotal * 15) / 10;
             newSyms = _XkbTypedCalloc(xkb->map->size_syms, KeySym);
             if (newSyms == NULL)
                 return BadAlloc;
