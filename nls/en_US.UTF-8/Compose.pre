@@ -1065,6 +1065,7 @@ XCOMM Latin Extended-B
 <dead_stroke> <z>				: "ƶ"	U01B6 # LATIN SMALL LETTER Z WITH STROKE
 <Multi_key> <slash> <z>				: "ƶ"	U01B6 # LATIN SMALL LETTER Z WITH STROKE
 <Multi_key> <KP_Divide> <z>			: "ƶ"	U01B6 # LATIN SMALL LETTER Z WITH STROKE
+<Multi_key> <Z> <H>				: "Ʒ"	U01B7 # LATIN CAPITAL LETTER EZH
 <dead_caron> <A>				: "Ǎ"	U01CD # LATIN CAPITAL LETTER A WITH CARON
 <Multi_key> <c> <A>				: "Ǎ"	U01CD # LATIN CAPITAL LETTER A WITH CARON
 <Multi_key> <v> <A>				: "Ǎ"	U01CD # LATIN CAPITAL LETTER A WITH CARON
@@ -1234,9 +1235,15 @@ XCOMM Latin Extended-B
 <dead_caron> <EZH>				: "Ǯ"	U01EE # LATIN CAPITAL LETTER EZH WITH CARON
 <Multi_key> <c> <EZH>				: "Ǯ"	U01EE # LATIN CAPITAL LETTER EZH WITH CARON
 <Multi_key> <v> <EZH>				: "Ǯ"	U01EE # LATIN CAPITAL LETTER EZH WITH CARON
+<dead_caron> <Multi_key> <Z> <H>		: "Ǯ"	U01EE # LATIN CAPITAL LETTER EZH WITH CARON
+<Multi_key> <c> <space> <Z> <H>			: "Ǯ"	U01EE # LATIN CAPITAL LETTER EZH WITH CARON
+<Multi_key> <v> <space> <Z> <H>			: "Ǯ"	U01EE # LATIN CAPITAL LETTER EZH WITH CARON
 <dead_caron> <ezh>				: "ǯ"	U01EF # LATIN SMALL LETTER EZH WITH CARON
 <Multi_key> <c> <ezh>				: "ǯ"	U01EF # LATIN SMALL LETTER EZH WITH CARON
 <Multi_key> <v> <ezh>				: "ǯ"	U01EF # LATIN SMALL LETTER EZH WITH CARON
+<dead_caron> <Multi_key> <z> <h>		: "ǯ"	U01EF # LATIN SMALL LETTER EZH WITH CARON
+<Multi_key> <c> <space> <z> <h>			: "ǯ"	U01EF # LATIN SMALL LETTER EZH WITH CARON
+<Multi_key> <v> <space> <z> <h>			: "ǯ"	U01EF # LATIN SMALL LETTER EZH WITH CARON
 <dead_caron> <j>				: "ǰ"	U01F0 # LATIN SMALL LETTER J WITH CARON
 <Multi_key> <c> <j>				: "ǰ"	U01F0 # LATIN SMALL LETTER J WITH CARON
 <Multi_key> <v> <j>				: "ǰ"	U01F0 # LATIN SMALL LETTER J WITH CARON
@@ -1416,6 +1423,7 @@ XCOMM IPA Extensions
 <dead_stroke> <i>				: "ɨ"	U0268 # LATIN SMALL LETTER I WITH STROKE
 <Multi_key> <slash> <i>				: "ɨ"	U0268 # LATIN SMALL LETTER I WITH STROKE
 <Multi_key> <KP_Divide> <i>			: "ɨ"	U0268 # LATIN SMALL LETTER I WITH STROKE
+<Multi_key> <z> <h>				: "ʒ"	U0292 # LATIN SMALL LETTER EZH
 
 XCOMM Spacing Modifier Letters
 <Multi_key> <slash> <U0294>				: "ʡ"	U02A1 # LATIN LETTER GLOTTAL STOP WITH STROKE
