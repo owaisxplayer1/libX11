@@ -1,1 +1,38 @@
+XCOMM UTF-8 (Unicode) compose sequences for Cyrillic layouts
+
+XCOMM Use en_US.UTF-8/Compose as the base compose sequence definition set
 include "X11_LOCALEDATADIR/en_US.UTF-8/Compose"
+
+XCOMM Symbols not available in Cyrillic JCUKEN layout and its derivatives
+<Multi_key> <space> <Cyrillic_io>		: "`"	grave # GRAVE ACCENT
+<Multi_key> <Cyrillic_io> <space>		: "`"	grave # GRAVE ACCENT
+<Multi_key> <space> <Cyrillic_IO>		: "~"	asciitilde # TILDE
+<Multi_key> <Cyrillic_IO> <space>		: "~"	asciitilde # TILDE
+<Multi_key> <space> <quotedbl>			: "@"	at # COMMERCIAL AT
+XCOMM Override diaeresis in en_US.UTF-8:
+<Multi_key> <quotedbl> <space>			: "@"	at # COMMERCIAL AT
+<Multi_key> <space> <numerosign>		: "#"	numbersign # NUMBER SIGN
+<Multi_key> <numerosign> <space>		: "#"	numbersign # NUMBER SIGN
+<Multi_key> <space> <semicolon>			: "$"	dollar # DOLLAR SIGN
+XCOMM Override ogonek in en_US.UTF-8:
+<Multi_key> <semicolon> <space>			: "$"	dollar # DOLLAR SIGN
+<Multi_key> <space> <colon>				: "^"	asciicircum # CIRCUMFLEX ACCENT
+<Multi_key> <colon> <space>				: "^"	asciicircum # CIRCUMFLEX ACCENT
+<Multi_key> <space> <question>			: "&"	ampersand # AMPERSAND
+<Multi_key> <question> <space>			: "&"	ampersand # AMPERSAND
+<Multi_key> <space> <Cyrillic_ha>		: "["	bracketleft # LEFT SQUARE BRACKET
+<Multi_key> <Cyrillic_ha> <space>		: "["	bracketleft # LEFT SQUARE BRACKET
+<Multi_key> <space> <Cyrillic_HA>		: "{"	braceleft # LEFT CURLY BRACKET
+<Multi_key> <Cyrillic_HA> <space>		: "{"	braceleft # LEFT CURLY BRACKET
+<Multi_key> <space> <Cyrillic_hardsign>	: "]"	bracketright # RIGHT SQUARE BRACKET
+<Multi_key> <Cyrillic_hardsign> <space>	: "]"	bracketright # RIGHT SQUARE BRACKET
+<Multi_key> <space> <Cyrillic_HARDSIGN>	: "}"	braceright # RIGHT CURLY BRACKET
+<Multi_key> <Cyrillic_HARDSIGN> <space>	: "}"	braceright # RIGHT CURLY BRACKET
+<Multi_key> <space> <slash>				: "|"	bar # VERTICAL LINE
+<Multi_key> <slash> <space>				: "|"	bar # VERTICAL LINE
+<Multi_key> <space> <Cyrillic_e>		: "'"	apostrophe # APOSTROPHE
+<Multi_key> <Cyrillic_e> <space>		: "'"	apostrophe # APOSTROPHE
+<Multi_key> <space> <Cyrillic_BE>		: "<"	less # LESS-THAN
+<Multi_key> <Cyrillic_BE> <space>		: "<"	less # LESS-THAN
+<Multi_key> <space> <Cyrillic_YU>		: ">"	greater # GREATER-THAN
+<Multi_key> <Cyrillic_YU> <space>		: ">"	greater # GREATER-THAN
