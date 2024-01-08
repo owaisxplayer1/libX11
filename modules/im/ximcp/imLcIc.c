@@ -65,6 +65,12 @@ _XimLocalDestroyIC(
     Xfree(ic->private.local.ic_resources);
     ic->private.local.ic_resources = NULL;
 
+    Xfree(ic->core.res_name);
+    ic->core.res_name=NULL;
+
+    Xfree(ic->core.res_class);
+    ic->core.res_class = NULL;
+
     return;
 }
 
@@ -194,6 +200,7 @@ Set_Error :
 
     Xfree(ic->private.local.ic_resources);
      ic->private.local.ic_resources = NULL;
+     
     Xfree(ic);
     return((XIC)NULL);
 }
