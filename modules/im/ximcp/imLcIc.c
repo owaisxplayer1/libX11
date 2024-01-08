@@ -190,10 +190,9 @@ _XimLocalCreateIC(
     return((XIC)ic);
 
 Set_Error :
-    if (ic->private.local.ic_resources) {
-	Xfree(ic->private.local.ic_resources);
-	ic->private.local.ic_resources = NULL;
-    }
+
+    Xfree(ic->private.local.ic_resources);
+     ic->private.local.ic_resources = NULL;
     Xfree(ic);
     return((XIC)NULL);
 }
