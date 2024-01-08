@@ -61,10 +61,10 @@ _XimLocalDestroyIC(
     if (ic->core.focus_window)
 	_XUnregisterFilter(ic->core.im->core.display,
 			ic->core.focus_window, _XimLocalFilter, (XPointer)ic);
-    if(ic->private.local.ic_resources) {
-	Xfree(ic->private.local.ic_resources);
-	ic->private.local.ic_resources = NULL;
-    }
+
+    Xfree(ic->private.local.ic_resources);
+    ic->private.local.ic_resources = NULL;
+
     return;
 }
 
