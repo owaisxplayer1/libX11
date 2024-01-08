@@ -836,9 +836,8 @@ _XimEncodeString(
     }
 
     out = (char **)((char *)top + info->offset);
-    if(*out) {
-	Xfree(*out);
-    }
+    
+    Xfree(*out);
     *out = string;
     return True;
 }
