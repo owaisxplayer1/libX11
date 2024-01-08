@@ -138,7 +138,7 @@ _XimLocalCreateIC(
     XIMArg		*values)
 {
     Xic			 ic;
-    XimDefICValues	 ic_values;
+    XimDefICValues	 ic_values={ 0 };
     XIMResourceList	 res;
     unsigned int	 num;
     int			 len;
@@ -167,8 +167,7 @@ _XimLocalCreateIC(
     ic->private.local.ic_resources     = res;
     ic->private.local.ic_num_resources = num;
 
-    bzero((char *)&ic_values, sizeof(XimDefICValues));
-    if(_XimCheckLocalInputStyle(ic, (XPointer)&ic_values, values,
+     if(_XimCheckLocalInputStyle(ic, (XPointer)&ic_values, values,
 				 im->core.styles, res, num) == False) {
 	goto Set_Error;
     }
