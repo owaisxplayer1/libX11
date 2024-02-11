@@ -340,9 +340,6 @@ typedef struct _XSQEvent
 #endif
 
 #include <X11/Xproto.h>
-#ifdef __sgi
-#define _SGI_MP_SOURCE  /* turn this on to get MP safe errno */
-#endif
 #include <errno.h>
 #define _XBCOPYFUNC _Xbcopy
 #include <X11/Xfuncs.h>
