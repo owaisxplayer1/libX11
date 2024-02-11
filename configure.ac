@@ -99,19 +99,12 @@ XTRANS_CONNECTION_FLAGS
 
 # Check for dlopen
 AC_SEARCH_LIBS(dlopen,[dl svld])
-if test "x$ac_cv_search_dlopen" = xno; then
-	AC_SEARCH_LIBS(shl_load,[dld])
-	if test "x$ac_cv_search_shl_load" != xno; then
-		AC_DEFINE(HAVE_SHL_LOAD,1,
-			  [Use shl_load to load shared libraries])
-		AC_CHECK_HEADERS([dl.h])
-	fi
-else
+if test "x$ac_cv_search_dlopen" != xno; then
 	AC_DEFINE(HAVE_DLOPEN,1,[Use dlopen to load shared libraries])
 	AC_CHECK_HEADERS([dlfcn.h])
 fi
 AC_MSG_CHECKING([if run-time linking is supported])
-if test "x$ac_cv_header_dlfcn_h" = xyes -o "x$ac_cv_header_dl_h" = xyes; then
+if test "x$ac_cv_header_dlfcn_h" = xyes; then
 	HAVE_LOADABLE_MODULES=yes
 else
 	HAVE_LOADABLE_MODULES=no

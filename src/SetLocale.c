@@ -99,32 +99,20 @@ _XlcMapOSLocaleName(
     char *osname,
     char *siname)
 {
-#if defined(hpux) || defined(CSRG_BASED) || defined(sun) || defined(SVR4) || defined(sgi) || defined(WIN32) || defined(linux)
-# ifdef hpux
-#  ifndef _LastCategory
-   /* HPUX 9 and earlier */
-#   define SKIPCOUNT 2
-#   define STARTCHAR ':'
-#   define ENDCHAR ';'
-#  else
-   /* HPUX 10 */
-#   define ENDCHAR ' '
-#  endif
+#if defined(CSRG_BASED) || defined(sun) || defined(SVR4) || defined(sgi) || defined(WIN32) || defined(linux)
+# if defined(WIN32)
+#  define SKIPCOUNT 1
+#  define STARTCHAR '='
+#  define ENDCHAR ';'
+#  define WHITEFILL
 # else
-#  if defined(WIN32)
-#   define SKIPCOUNT 1
-#   define STARTCHAR '='
+#  if defined(linux)
+#   define STARTSTR "LC_CTYPE="
 #   define ENDCHAR ';'
-#   define WHITEFILL
 #  else
-#   if defined(linux)
-#    define STARTSTR "LC_CTYPE="
-#    define ENDCHAR ';'
-#   else
-#    if !defined(sun) || defined(SVR4)
-#     define STARTCHAR '/'
-#     define ENDCHAR '/'
-#    endif
+#   if !defined(sun) || defined(SVR4)
+#    define STARTCHAR '/'
+#    define ENDCHAR '/'
 #   endif
 #  endif
 # endif

@@ -1697,7 +1697,7 @@ _XData32(
  *       and so, you may be better off using gethostname (if it exists).
  */
 
-#if (defined(_POSIX_SOURCE) && !defined(__QNX__)) || defined(hpux) || defined(SVR4)
+#if (defined(_POSIX_SOURCE) && !defined(__QNX__)) || defined(SVR4)
 #define NEED_UTSNAME
 #include <sys/utsname.h>
 #else
