@@ -37,35 +37,21 @@ from The Open Group.
 #endif
 #include <X11/Xlibint.h>
 
-
-/*
- * If possible, it is useful to have the global data default to a null value.
- * Some shared library implementations are *much* happier if there isn't any
- * global initialized data.
- */
-#ifdef NULL_NOT_ZERO			/* then need to initialize */
-#define SetZero(t,var,z) t var = z
-#else
-#define SetZero(t,var,z) t var
-#endif
-
-#define ZEROINIT(t,var,val) SetZero (t, var, val)
-
 /*
  * Error handlers; used to be in XlibInt.c
  */
-ZEROINIT (XErrorHandler, _XErrorFunction, NULL);
-ZEROINIT (XIOErrorHandler, _XIOErrorFunction, NULL);
-ZEROINIT (_XQEvent *, _qfree, NULL);
+XErrorHandler   _XErrorFunction;
+XIOErrorHandler _XIOErrorFunction;
+_XQEvent *      _qfree;
 
 
 /*
  * Debugging information and display list; used to be in XOpenDis.c
  */
 #ifndef WIN32
-ZEROINIT (int, _Xdebug, 0);
+int      _Xdebug;
 #endif
-ZEROINIT (Display *, _XHeadOfDisplayList, NULL);
+Display *_XHeadOfDisplayList;
 
 
 #ifdef XTEST1
