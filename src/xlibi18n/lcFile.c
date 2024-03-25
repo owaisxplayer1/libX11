@@ -88,6 +88,40 @@ parse_line(
     return argc;
 }
 
+#ifdef WIN32
+/* this is parse_line but skips drive letters at the beginning of the entry */
+static int
+parse_line1(
+    char *line,
+    char **argv,
+    int argsize)
+{
+    int argc = 0;
+    char *p = line;
+
+    while (argc < argsize) {
+	while (isspace(*p)) {
+	    ++p;
+	}
+	if (*p == '\0') {
+	    break;
+	}
+	argv[argc++] = p;
+        if (isalpha(*p) && p[1] == ':') {
+            p+= 2; /* skip drive letters */
+        }
+	while (*p != ':' && *p != '\n' && *p != '\0') {
+	    ++p;
+	}
+	if (*p == '\0') {
+	    break;
+	}
+	*p++ = '\0';
+    }
+
+    return argc;
+}
+#endif   /* WIN32 */
 
 /* Splits a colon separated list of directories, and returns the constituent
    paths (without trailing slash). At most argsize constituents are stored
