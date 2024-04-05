@@ -31,6 +31,11 @@ For patch submission instructions, see:
 
   https://www.x.org/wiki/Development/Documentation/SubmittingPatches
 
+## Release 1.8.9
+
+ * Fix regressions introduced in 1.8.8 (!245, !248) - this includes reverting
+   for now the previous "Fix XIM input sometimes jumbled (#198, !236)"
+
 ## Release 1.8.8
 
  * Fix XIM input sometimes jumbled (#198, !236)
