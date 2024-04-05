@@ -341,54 +341,6 @@ _XimForwardEvent(
     return _XimForwardEventCore(ic, ev, sync);
 }
 
-Bool
-_XimFabricateSerial(
-    Xim			 im,
-    unsigned long	 serial)
-{
-    if (!serial)
-	return False;
-    if (serial == im->private.proto.fabricated_serial) {
-	fprintf(stderr, "%s,%d: The key event is already fabricated.\n", __FILE__, __LINE__);
-	return False;
-    }
-    if (im->private.proto.fabricated_serial)
-	fprintf(stderr, "%s,%d: Tried to fabricate a wrong key event.\n", __FILE__, __LINE__);
-
-    MARK_FABRICATED(im);
-    im->private.proto.fabricated_serial = serial;
-    return True;
-}
-
-Bool
-_XimUnfabricateSerial(
-    Xim			 im,
-    unsigned long	 serial)
-{
-    if (!serial)
-	return False;
-    if (!im->private.proto.fabricated_serial) {
-	fprintf(stderr, "%s,%d: The key event is already unfabricated.\n", __FILE__, __LINE__);
-	return False;
-    }
-    if (serial != im->private.proto.fabricated_serial)
-	fprintf(stderr, "%s,%d: Tried to unfabricate a wrong key event.\n", __FILE__, __LINE__);
-
-    im->private.proto.fabricated_serial = 0;
-    UNMARK_FABRICATED(im);
-    return True;
-}
-
-Bool
-_XimIsFabricatedSerial(
-    Xim			 im,
-    unsigned long	 serial)
-{
-    if (!serial)
-	return False;
-    return (serial == im->private.proto.fabricated_serial);
-}
-
 static void
 _XimProcEvent(
     Display		*d,
@@ -403,7 +355,7 @@ _XimProcEvent(
     ev->xany.serial |= serial << 16;
     ev->xany.send_event = False;
     ev->xany.display = d;
-    _XimFabricateSerial((Xim)ic->core.im, ev->xany.serial);
+    MARK_FABRICATED(ic->core.im);
     return;
 }
 
@@ -752,6 +704,10 @@ _XimCommitRecv(
 
     (void)_XimRespSyncReply(ic, flag);
 
+    if (ic->private.proto.registed_filter_event
+	& (KEYPRESS_MASK | KEYRELEASE_MASK))
+	    MARK_FABRICATED(im);
+
     bzero(&ev, sizeof(ev));	/* uninitialized : found when running kterm under valgrind */
 
     ev.type = KeyPress;
@@ -763,10 +719,6 @@ _XimCommitRecv(
 
     ev.time = 0L;
     ev.serial = LastKnownRequestProcessed(im->core.display);
-
-    if (ic->private.proto.registed_filter_event
-	& (KEYPRESS_MASK | KEYRELEASE_MASK))
-	    _XimFabricateSerial(im, ev.serial);
     /* FIXME :
        I wish there were COMMENTs (!) about the data passed around.
     */

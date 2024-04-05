@@ -430,7 +430,6 @@ _XimPreConnect(
 	return False;
 
     im->private.proto.im_window = im_window;
-    im->private.proto.fabricated_serial = 0;
     return True;
 }
 
