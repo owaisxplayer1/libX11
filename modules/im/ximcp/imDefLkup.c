@@ -346,8 +346,11 @@ _XimFabricateSerial(
     Xim			 im,
     unsigned long	 serial)
 {
-    if (!serial)
-	return False;
+    /* GTK2 XIM module sets serial=0. */
+    if (!serial) {
+	MARK_FABRICATED(im);
+	return True;
+    }
     if (serial == im->private.proto.fabricated_serial) {
 	fprintf(stderr, "%s,%d: The key event is already fabricated.\n", __FILE__, __LINE__);
 	return False;
@@ -365,8 +368,11 @@ _XimUnfabricateSerial(
     Xim			 im,
     unsigned long	 serial)
 {
-    if (!serial)
-	return False;
+    /* GTK2 XIM module sets serial=0. */
+    if (!serial) {
+	UNMARK_FABRICATED(im);
+	return True;
+    }
     if (!im->private.proto.fabricated_serial) {
 	fprintf(stderr, "%s,%d: The key event is already unfabricated.\n", __FILE__, __LINE__);
 	return False;
@@ -384,8 +390,9 @@ _XimIsFabricatedSerial(
     Xim			 im,
     unsigned long	 serial)
 {
+    /* GTK2 XIM module sets serial=0. */
     if (!serial)
-	return False;
+	return IS_FABRICATED(im);
     return (serial == im->private.proto.fabricated_serial);
 }
 
