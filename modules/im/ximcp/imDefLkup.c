@@ -640,20 +640,45 @@ _XimRegCommitInfo(
 }
 
 static void
-_XimUnregCommitInfo(
-    Xic			ic)
+_XimUnregRealCommitInfo(
+    Xic			ic,
+    Bool		reverse)
 {
     XimCommitInfo	info;
+    XimCommitInfo	prev_info = NULL;
 
-    if (!(info = ic->private.proto.commit_info))
+    info = ic->private.proto.commit_info;
+    while (reverse && info) {
+	if (!info->next)
+	    break;
+	prev_info = info;
+	info = info->next;
+    }
+    if (!info)
 	return;
-
 
     Xfree(info->string);
     Xfree(info->keysym);
-    ic->private.proto.commit_info = info->next;
+    if (prev_info)
+	prev_info->next = info->next;
+    else
+	ic->private.proto.commit_info = info->next;
     Xfree(info);
     return;
+}
+
+static void
+_XimUnregCommitInfo(
+    Xic			ic)
+{
+    _XimUnregRealCommitInfo(ic, False);
+}
+
+static void
+_XimUnregFirstCommitInfo(
+    Xic			ic)
+{
+    _XimUnregRealCommitInfo(ic, True);
 }
 
 void
@@ -663,6 +688,19 @@ _XimFreeCommitInfo(
     while (ic->private.proto.commit_info)
 	_XimUnregCommitInfo(ic);
     return;
+}
+
+static XimCommitInfo
+_XimFirstCommitInfo(
+    Xic			ic)
+{
+    XimCommitInfo info = ic->private.proto.commit_info;
+    while (info) {
+	if (!info->next)
+	    break;
+	info = info->next;
+    }
+    return info;
 }
 
 static Bool
@@ -1059,7 +1097,7 @@ _XimProtoMbLookupString(
 	state = &tmp_state;
 
     if ((ev->type == KeyPress) && (ev->keycode == 0)) { /* Filter function */
-	if (!(info = ic->private.proto.commit_info)) {
+	if (!(info = _XimFirstCommitInfo(ic))) {
 	    *state = XLookupNone;
 	    return 0;
 	}
@@ -1075,7 +1113,7 @@ _XimProtoMbLookupString(
 	    else
 		*state = XLookupKeySym;
 	}
-	_XimUnregCommitInfo(ic);
+	_XimUnregFirstCommitInfo(ic);
 
     } else  if (ev->type == KeyPress) {
 	ret = _XimLookupMBText(ic, ev, buffer, bytes, keysym, NULL);
@@ -1122,7 +1160,7 @@ _XimProtoWcLookupString(
 	state = &tmp_state;
 
     if (ev->type == KeyPress && ev->keycode == 0) { /* Filter function */
-	if (!(info = ic->private.proto.commit_info)) {
+	if (!(info = _XimFirstCommitInfo(ic))) {
            *state = XLookupNone;
 	    return 0;
 	}
@@ -1138,7 +1176,7 @@ _XimProtoWcLookupString(
 	    else
 		*state = XLookupKeySym;
 	}
-	_XimUnregCommitInfo(ic);
+	_XimUnregFirstCommitInfo(ic);
 
     } else if (ev->type == KeyPress) {
 	ret = _XimLookupWCText(ic, ev, buffer, bytes, keysym, NULL);
@@ -1185,7 +1223,7 @@ _XimProtoUtf8LookupString(
 	state = &tmp_state;
 
     if (ev->type == KeyPress && ev->keycode == 0) { /* Filter function */
-	if (!(info = ic->private.proto.commit_info)) {
+	if (!(info = _XimFirstCommitInfo(ic))) {
            *state = XLookupNone;
 	    return 0;
 	}
@@ -1201,7 +1239,7 @@ _XimProtoUtf8LookupString(
 	    else
 		*state = XLookupKeySym;
 	}
-	_XimUnregCommitInfo(ic);
+	_XimUnregFirstCommitInfo(ic);
 
     } else if (ev->type == KeyPress) {
 	ret = _XimLookupUTF8Text(ic, ev, buffer, bytes, keysym, NULL);
