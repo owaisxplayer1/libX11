@@ -319,6 +319,7 @@ _XimFabricateSerial(
 Bool
 _XimUnfabricateSerial(
     Xim                  im,
+    Xic                  ic,
     XKeyEvent           *event);
 
 Bool

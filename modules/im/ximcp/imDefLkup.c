@@ -367,10 +367,20 @@ _XimFabricateSerial(
 Bool
 _XimUnfabricateSerial(
     Xim			 im,
+    Xic			 ic,
     XKeyEvent		*event)
 {
+    if (!im->private.proto.enable_fabricated_order) {
+	UNMARK_FABRICATED(im);
+	return True;
+    }
     /* GTK2 XIM module sets serial=0. */
-    if (!event->serial || !im->private.proto.enable_fabricated_order) {
+    if (!event->serial) {
+	/* _XimCommitRecv() sets event->serial and call _XimFabricateSerial()
+	 * but GTK2 XIM always reset event->serial=0 with XFilterEvent().
+	 */
+	if (ic && ic->private.proto.commit_info)
+	    im->private.proto.fabricated_serial = 0;
 	UNMARK_FABRICATED(im);
 	return True;
     }
