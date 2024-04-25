@@ -142,9 +142,9 @@ _XimProtoKeypressFilter(
 {
     Xim		im = (Xim)ic->core.im;
 
-    if (_XimIsFabricatedSerial(im, ev->serial)) {
+    if (_XimIsFabricatedSerial(im, ev)) {
 	_XimPendingFilter(ic);
-	_XimUnfabricateSerial(im, ev->serial);
+	_XimUnfabricateSerial(im, ev);
 	return NOTFILTERD;
     }
 
@@ -203,9 +203,9 @@ _XimProtoKeyreleaseFilter(
 {
     Xim		im = (Xim)ic->core.im;
 
-    if (_XimIsFabricatedSerial(im, ev->serial)) {
+    if (_XimIsFabricatedSerial(im, ev)) {
 	_XimPendingFilter(ic);
-	_XimUnfabricateSerial(im, ev->serial);
+	_XimUnfabricateSerial(im, ev);
 	return NOTFILTERD;
     }
 

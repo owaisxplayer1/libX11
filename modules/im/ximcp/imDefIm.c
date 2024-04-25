@@ -431,6 +431,8 @@ _XimPreConnect(
 
     im->private.proto.im_window = im_window;
     im->private.proto.fabricated_serial = 0;
+    im->private.proto.fabricated_time = 0;
+    im->private.proto.enable_fabricated_order = True;
     return True;
 }
 

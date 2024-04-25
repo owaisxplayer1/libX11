@@ -344,14 +344,14 @@ _XimForwardEvent(
 Bool
 _XimFabricateSerial(
     Xim			 im,
-    unsigned long	 serial)
+    XKeyEvent		*event)
 {
     /* GTK2 XIM module sets serial=0. */
-    if (!serial) {
+    if (!event->serial || !im->private.proto.enable_fabricated_order) {
 	MARK_FABRICATED(im);
 	return True;
     }
-    if (serial == im->private.proto.fabricated_serial) {
+    if (event->serial == im->private.proto.fabricated_serial) {
 	fprintf(stderr, "%s,%d: The key event is already fabricated.\n", __FILE__, __LINE__);
 	return False;
     }
@@ -359,17 +359,18 @@ _XimFabricateSerial(
 	fprintf(stderr, "%s,%d: Tried to fabricate a wrong key event.\n", __FILE__, __LINE__);
 
     MARK_FABRICATED(im);
-    im->private.proto.fabricated_serial = serial;
+    im->private.proto.fabricated_serial = event->serial;
+    im->private.proto.fabricated_time = event->time;
     return True;
 }
 
 Bool
 _XimUnfabricateSerial(
     Xim			 im,
-    unsigned long	 serial)
+    XKeyEvent		*event)
 {
     /* GTK2 XIM module sets serial=0. */
-    if (!serial) {
+    if (!event->serial || !im->private.proto.enable_fabricated_order) {
 	UNMARK_FABRICATED(im);
 	return True;
     }
@@ -377,10 +378,11 @@ _XimUnfabricateSerial(
 	fprintf(stderr, "%s,%d: The key event is already unfabricated.\n", __FILE__, __LINE__);
 	return False;
     }
-    if (serial != im->private.proto.fabricated_serial)
+    if (event->serial != im->private.proto.fabricated_serial)
 	fprintf(stderr, "%s,%d: Tried to unfabricate a wrong key event.\n", __FILE__, __LINE__);
 
     im->private.proto.fabricated_serial = 0;
+    im->private.proto.fabricated_time = 0;
     UNMARK_FABRICATED(im);
     return True;
 }
@@ -388,12 +390,32 @@ _XimUnfabricateSerial(
 Bool
 _XimIsFabricatedSerial(
     Xim			 im,
-    unsigned long	 serial)
+    XKeyEvent		*event)
 {
     /* GTK2 XIM module sets serial=0. */
-    if (!serial)
-	return IS_FABRICATED(im);
-    return (serial == im->private.proto.fabricated_serial);
+    if (!event->serial || !im->private.proto.enable_fabricated_order)
+	return IS_FABRICATED(im) ? True : False;
+    if (event->serial == im->private.proto.fabricated_serial)
+	return True;
+    if (!im->private.proto.fabricated_serial)
+	return False;
+    /* Rotate time */
+    if (event->time < im->private.proto.fabricated_time) {
+	if (event->time >= 1000)
+	    im->private.proto.fabricated_time = 0;
+    } else if (event->time - im->private.proto.fabricated_time > 1000) {
+	fprintf(stderr,
+	        "%s,%d: The application disposed a key event with %ld serial.\n",
+	        __FILE__, __LINE__,
+	        im->private.proto.fabricated_serial);
+	im->private.proto.enable_fabricated_order = False;
+	if (IS_FABRICATED(im)) {
+	    if (event->serial)
+		im->private.proto.fabricated_serial = event->serial;
+	    return True;
+	}
+    }
+    return False;
 }
 
 static void
@@ -410,7 +432,7 @@ _XimProcEvent(
     ev->xany.serial |= serial << 16;
     ev->xany.send_event = False;
     ev->xany.display = d;
-    _XimFabricateSerial((Xim)ic->core.im, ev->xany.serial);
+    _XimFabricateSerial((Xim)ic->core.im, &ev->xkey);
     return;
 }
 
@@ -811,7 +833,7 @@ _XimCommitRecv(
 
     if (ic->private.proto.registed_filter_event
 	& (KEYPRESS_MASK | KEYRELEASE_MASK))
-	    _XimFabricateSerial(im, ev.serial);
+	    _XimFabricateSerial(im, &ev);
     /* FIXME :
        I wish there were COMMENTs (!) about the data passed around.
     */
