@@ -63,6 +63,8 @@ PERFORMANCE OF THIS SOFTWARE.
 #include "Ximint.h"
 
 #include <limits.h>
+#include <stdlib.h>
+#include <strings.h>
 
 int
 _XimCheckDataSize(
@@ -400,6 +402,7 @@ _XimPreConnect(
     Atom	   *atoms;
     Window	    im_window = 0;
     register int    i;
+    const char	   *env_enable_fabricated_order;
 
     if((imserver = XInternAtom(display, XIM_SERVERS, True)) == (Atom)None)
 	return False;
@@ -433,6 +436,13 @@ _XimPreConnect(
     im->private.proto.fabricated_serial = 0;
     im->private.proto.fabricated_time = 0;
     im->private.proto.enable_fabricated_order = True;
+    env_enable_fabricated_order = getenv("LIBX11_ENABLE_FABRICATED_ORDER");
+    if (env_enable_fabricated_order && *env_enable_fabricated_order) {
+	if (!strncasecmp(env_enable_fabricated_order, "0", 2) ||
+	    !strncasecmp(env_enable_fabricated_order, "false", 6)) {
+	    im->private.proto.enable_fabricated_order = False;
+	}
+    }
     return True;
 }
 
