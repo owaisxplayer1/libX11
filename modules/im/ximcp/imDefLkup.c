@@ -635,7 +635,7 @@ _XimTriggerNotify(
 	} else {
 	    buf_size = len;
 	    preply = Xmalloc(len);
-	    ret_code = _XimRead(im, &len, (XPointer)reply, buf_size,
+	    ret_code = _XimRead(im, &len, preply, buf_size,
 				_XimTriggerNotifyCheck, (XPointer)ic);
 	    if(ret_code != XIM_TRUE) {
 		Xfree(preply);
