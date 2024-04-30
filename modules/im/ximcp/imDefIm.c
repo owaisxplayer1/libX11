@@ -1327,8 +1327,11 @@ _XimProtoSetIMValues(
     }
     _XimSetCurrentIMValues(im, &im_values);
 
-    if (!total)
-	return (char *)NULL;
+    if (!total) {
+        if (buf != tmp_buf)
+	    Xfree(buf);
+        return (char *)NULL;
+    }
 
     buf_s = (CARD16 *)&buf[XIM_HEADER_SIZE];
     buf_s[0] = im->private.proto.imid;
