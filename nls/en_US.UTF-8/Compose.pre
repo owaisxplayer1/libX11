@@ -1678,7 +1678,12 @@ XCOMM Cyrillic
 <dead_diaeresis> <Cyrillic_yeru>	: "ӹ"	U04F9 # CYRILLIC SMALL LETTER YERU WITH DIAERESIS
 <Multi_key> <quotedbl> <Cyrillic_yeru>	: "ӹ"	U04F9 # CYRILLIC SMALL LETTER YERU WITH DIAERESIS
 
-XCOMM Several other scripts
+XCOMM Arabic
+<dead_hamza> <space>			: "ء"	Arabic_hamza # ARABIC LETTER HAMZA
+<dead_hamza> <dead_hamza>		: "ء"	Arabic_hamza # ARABIC LETTER HAMZA
+<dead_hamza> <Arabic_alef>		: "أ"	Arabic_hamzaonalef # ARABIC LETTER ALEF WITH HAMZA ABOVE
+<dead_hamza> <Arabic_waw>		: "ؤ"	Arabic_hamzaonwaw # ARABIC LETTER WAW WITH HAMZA ABOVE
+<dead_hamza> <Arabic_yeh>		: "ئ"	Arabic_hamzaonyeh # ARABIC LETTER YEH WITH HAMZA ABOVE
 <Multi_key> <U0653> <Arabic_alef>	: "آ"	U0622 # ARABIC LETTER ALEF WITH MADDA ABOVE
 <Multi_key> <U0654> <Arabic_alef>	: "أ"	U0623 # ARABIC LETTER ALEF WITH HAMZA ABOVE
 <Multi_key> <U0654> <Arabic_waw>	: "ؤ"	U0624 # ARABIC LETTER WAW WITH HAMZA ABOVE
@@ -1687,6 +1692,8 @@ XCOMM Several other scripts
 <Multi_key> <U0654> <U06D5>		: "ۀ"	U06C0 # ARABIC LETTER HEH WITH YEH ABOVE
 <Multi_key> <U0654> <U06C1>		: "ۂ"	U06C2 # ARABIC LETTER HEH GOAL WITH HAMZA ABOVE
 <Multi_key> <U0654> <U06D2>		: "ۓ"	U06D3 # ARABIC LETTER YEH BARREE WITH HAMZA ABOVE
+
+XCOMM Several other scripts
 <Multi_key> <U093C> <U0928>		: "ऩ"	U0929 # DEVANAGARI LETTER NNNA
 <Multi_key> <U093C> <U0930>		: "ऱ"	U0931 # DEVANAGARI LETTER RRA
 <Multi_key> <U093C> <U0933>		: "ऴ"	U0934 # DEVANAGARI LETTER LLLA
