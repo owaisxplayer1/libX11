@@ -912,7 +912,6 @@ XCOMM Latin Extended-A
 <Multi_key> <comma> <s>			: "ş"	U015F # LATIN SMALL LETTER S WITH CEDILLA
 <Multi_key> <s> <comma>			: "ş"	U015F # LATIN SMALL LETTER S WITH CEDILLA
 <Multi_key> <cedilla> <s>		: "ş"	U015F # LATIN SMALL LETTER S WITH CEDILLA
-<Multi_key> <s> <cedilla>		: "ş"	U015F # LATIN SMALL LETTER S WITH CEDILLA
 <dead_caron> <S>			: "Š"	U0160 # LATIN CAPITAL LETTER S WITH CARON
 <Multi_key> <c> <S>			: "Š"	U0160 # LATIN CAPITAL LETTER S WITH CARON
 <Multi_key> <v> <S>			: "Š"	U0160 # LATIN CAPITAL LETTER S WITH CARON
