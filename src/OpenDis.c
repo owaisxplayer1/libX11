@@ -709,10 +709,10 @@ void _XFreeDisplayStructure(Display *dpy)
 
 static void OutOfMemory(Display *dpy)
 {
-    xcb_connection_t *connection = dpy->xcb->connection;
+	xcb_connection_t *connection = dpy->xcb->connection;
 
-    _XFreeDisplayStructure (dpy);
+	_XFreeDisplayStructure (dpy);
 
-    if(connection)
-	xcb_disconnect(connection);
+	if (connection)
+	    xcb_disconnect(connection);
 }
