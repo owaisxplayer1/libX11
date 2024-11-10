@@ -804,12 +804,12 @@ typedef struct _XAsyncEState {
 } _XAsyncErrorState;
 
 extern void _XDeqAsyncHandler(Display *dpy, _XAsyncHandler *handler);
-#define DeqAsyncHandler(dpy,handler) { \
+#define DeqAsyncHandler(dpy,handler) do { \
     if (dpy->async_handlers == (handler)) \
 	dpy->async_handlers = (handler)->next; \
     else \
 	_XDeqAsyncHandler(dpy, handler); \
-    }
+    } while (0)
 
 typedef void (*FreeFuncType) (
     Display*	/* display */
