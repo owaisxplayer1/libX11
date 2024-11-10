@@ -717,7 +717,7 @@ extern void _XRead32(
  * char.
  */
 #define CI_GET_CHAR_INFO_1D(fs,col,def,cs) \
-{ \
+do { \
     cs = def; \
     if (col >= fs->min_char_or_byte2 && col <= fs->max_char_or_byte2) { \
 	if (fs->per_char == NULL) { \
@@ -727,7 +727,7 @@ extern void _XRead32(
 	    if (CI_NONEXISTCHAR(cs)) cs = def; \
 	} \
     } \
-}
+} while (0)
 
 #define CI_GET_DEFAULT_INFO_1D(fs,cs) \
   CI_GET_CHAR_INFO_1D (fs, fs->default_char, NULL, cs)
@@ -739,7 +739,7 @@ extern void _XRead32(
  * column.  This is used for fonts that have more than row zero.
  */
 #define CI_GET_CHAR_INFO_2D(fs,row,col,def,cs) \
-{ \
+do { \
     cs = def; \
     if (row >= fs->min_byte1 && row <= fs->max_byte1 && \
 	col >= fs->min_char_or_byte2 && col <= fs->max_char_or_byte2) { \
@@ -753,14 +753,14 @@ extern void _XRead32(
 	    if (CI_NONEXISTCHAR(cs)) cs = def; \
         } \
     } \
-}
+} while (0)
 
 #define CI_GET_DEFAULT_INFO_2D(fs,cs) \
-{ \
+do { \
     unsigned int r = (fs->default_char >> 8); \
     unsigned int c = (fs->default_char & 0xff); \
     CI_GET_CHAR_INFO_2D (fs, r, c, NULL, cs); \
-}
+} while (0)
 
 
 /* srcvar must be a variable for large architecture version */
