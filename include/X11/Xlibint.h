@@ -432,8 +432,8 @@ extern LockInfoPtr _Xglobal_lock;
 #define _XLockMutex(lock)		if (_XLockMutex_fn) (*_XLockMutex_fn)(lock)
 #define _XUnlockMutex(lock)	if (_XUnlockMutex_fn) (*_XUnlockMutex_fn)(lock)
 #endif
-#define _XCreateMutex(lock)	if (_XCreateMutex_fn) (*_XCreateMutex_fn)(lock);
-#define _XFreeMutex(lock)	if (_XFreeMutex_fn) (*_XFreeMutex_fn)(lock);
+#define _XCreateMutex(lock)	if (_XCreateMutex_fn) (*_XCreateMutex_fn)(lock)
+#define _XFreeMutex(lock)	if (_XFreeMutex_fn) (*_XFreeMutex_fn)(lock)
 
 #else /* XTHREADS */
 #define LockDisplay(dis)
