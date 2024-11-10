@@ -668,12 +668,13 @@ extern void _XFlushGCCache(Display *dpy, GC gc);
  *    BufAlloc (xTextElt *, elt, nbytes)
  */
 
-#define BufAlloc(type, ptr, n) \
+#define BufAlloc(type, ptr, n) do {      \
     if (dpy->bufptr + (n) > dpy->bufmax) \
         _XFlush (dpy); \
     ptr = (type) dpy->bufptr; \
     memset(ptr, '\0', (size_t)(n)); \
-    dpy->bufptr += (n);
+    dpy->bufptr += (n); \
+} while (0)
 
 #define Data16(dpy, data, len) Data((dpy), (_Xconst char *)(data), (len))
 #define _XRead16Pad(dpy, data, len) _XReadPad((dpy), (char *)(data), (len))
