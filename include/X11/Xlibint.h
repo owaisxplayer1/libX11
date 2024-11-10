@@ -765,7 +765,7 @@ extern void _XRead32(
 
 /* srcvar must be a variable for large architecture version */
 #define OneDataCard32(dpy,dstaddr,srcvar) \
-  { *(CARD32 *)(dstaddr) = (srcvar); }
+    do { *(CARD32 *)(dstaddr) = (srcvar); } while (0)
 
 
 typedef struct _XInternalAsync {
