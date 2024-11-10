@@ -644,13 +644,13 @@ extern void _XFlushGCCache(Display *dpy, GC gc);
  * "len" is the length of the data buffer.
  */
 #ifndef DataRoutineIsProcedure
-#define Data(dpy, data, len) {\
+#define Data(dpy, data, len) do {\
 	if (dpy->bufptr + (len) <= dpy->bufmax) {\
 		memcpy(dpy->bufptr, data, (size_t)(len));\
 		dpy->bufptr += ((size_t)((len) + 3) & (size_t)~3);\
 	} else\
 		_XSend(dpy, (_Xconst char*)(data), (long)(len));\
-}
+} while (0)
 #endif /* DataRoutineIsProcedure */
 
 
