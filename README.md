@@ -31,6 +31,11 @@ For patch submission instructions, see:
 
   https://www.x.org/wiki/Development/Documentation/SubmittingPatches
 
+## Release 1.8.12
+
+ * x11.pc: Add URL field (!280)
+ * xkb: Bring over fixes from Xserver to shared XKB source files (!279)
+
 ## Release 1.8.11
 
  * Close xcb connection after freeing display structure to avoid XIO error
